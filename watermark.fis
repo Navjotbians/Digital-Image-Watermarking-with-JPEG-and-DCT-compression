@@ -1,0 +1,60 @@
+[System]
+Name='watermark'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=10
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Luminance'
+Range=[0 2]
+NumMFs=4
+MF1='highestbright':'gaussmf',[0.2832 0]
+MF2='lowestbright':'gaussmf',[0.2832 0.6666]
+MF3='lowestdark':'gaussmf',[0.2832 1.333]
+MF4='highestdark':'gaussmf',[0.2832 2]
+
+[Input2]
+Name='Edge_sensitivity'
+Range=[0 1]
+NumMFs=4
+MF1='supreme':'gaussmf',[0.1416 0]
+MF2='second':'gaussmf',[0.1416 0.3333]
+MF3='median':'gaussmf',[0.1416 0.6667]
+MF4='lowest':'gaussmf',[0.1416 1]
+
+[Input3]
+Name='Variance'
+Range=[0 1]
+NumMFs=4
+MF1='highest':'gaussmf',[0.1416 0]
+MF2='second':'gaussmf',[0.1416 0.3333]
+MF3='low':'gaussmf',[0.1416 0.6667]
+MF4='lowest':'gaussmf',[0.1416 1]
+
+[Output1]
+Name='weighing_factor'
+Range=[0 1]
+NumMFs=4
+MF1='verysmall':'gaussmf',[0.1416 0]
+MF2='lightlysmall':'gaussmf',[0.1416 0.3333]
+MF3='lightlylarge':'gaussmf',[0.1416 0.6667]
+MF4='verylarge':'gaussmf',[0.1416 1]
+
+[Rules]
+4 1 1, 1 (1) : 1
+4 3 1, 2 (1) : 1
+4 4 2, 2 (1) : 1
+4 3 3, 2 (1) : 1
+2 2 4, 2 (1) : 1
+3 2 1, 3 (1) : 1
+2 2 1, 2 (1) : 1
+2 1 1, 3 (1) : 1
+1 1 2, 3 (1) : 1
+1 1 1, 4 (1) : 1
